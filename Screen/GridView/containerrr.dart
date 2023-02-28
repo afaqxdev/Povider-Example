@@ -2,11 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:provider_example/Screen/Example%20Six/exampleSix.dart';
 import 'package:provider_example/Screen/Four%20Example/four_example.dart';
 import 'package:provider_example/Screen/GridView/tab_bar.dart';
 import 'package:provider_example/Screen/GridView/userdata.dart';
 import 'package:provider_example/Screen/ThirdExample/third_example.dart';
+
+import '../../Provider/menu_notifier.dart';
 
 class RaisedButto extends StatefulWidget {
   const RaisedButto({super.key});
@@ -34,7 +37,52 @@ class _RaisedButtoState extends State<RaisedButto> {
       appBar: AppBar(
         title: Text("container"),
         centerTitle: true,
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.white,
+        leading: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15),
+          child: Builder(
+            builder: (context) => IconButton(
+              icon: Icon(
+                Icons.menu_rounded,
+                size: 40,
+                color: Colors.black,
+              ),
+              color: Colors.black,
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            ),
+          ),
+        ),
       ),
+      drawer: Drawer(child: Consumer<MenuDrawerNotifier>(
+        builder: (context, value, child) {
+          return ListView.builder(
+            itemCount: 3,
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () {
+                  value.setCurrentDrawer(index);
+                },
+                child: Container(
+                  color: value.getCurrentDrawer == index
+                      ? Colors.orange
+                      : Colors.transparent,
+                  child: Column(children: [
+                    Text(
+                      "name",
+                      style: TextStyle(
+                        color: value.getCurrentDrawer == index
+                            ? Colors.black
+                            : Colors.red,
+                      ),
+                    ),
+                  ]),
+                ),
+              );
+            },
+          );
+        },
+      )),
       body: Center(
         child: Column(
           children: [

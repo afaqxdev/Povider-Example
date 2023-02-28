@@ -14,6 +14,7 @@ import 'package:provider_example/Screen/GridView/grid.dart';
 import 'package:provider_example/Screen/GridView/tab_bar.dart';
 import 'package:provider_example/Screen/ThemeChanger/theme_changer.dart';
 import 'package:provider_example/Screen/ThirdExample/third_example.dart';
+import 'Provider/menu_notifier.dart';
 import 'Provider/sixProvider.dart';
 import 'Screen/ExampleOne/example_one.dart';
 
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => Favourite()),
           ChangeNotifierProvider(create: (_) => ThemeSelect()),
           ChangeNotifierProvider(create: (_) => Animations()),
+          ChangeNotifierProvider(create: (_) => MenuDrawerNotifier()),
         ],
         child: Builder(
           builder: (context) {
